@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    @if (@ViewBag.Result != null)
+    {
+        foreach (Field field in @ViewBag.Result)
+        {
+            if (field.Type != "unknown")
+            {
+                <p>@field.Title</p>
+                @switch (field.Type)
+                {
+                    case "select":
+                        {
+                            <select required="@field.Required">
+                                <option>id</option>
+                                <option>title</option>
+                            </select>
+                            break;
+                        }
+                    case "textarea":
+                        {
+                            <textarea rows=10 cols=30 required="@field.Required"></textarea>
+                            break;
+                        }
+                    case "datetime-local":
+                    case "datetime":
+                        {
+                            <input type="datetime-local" required="@field.Required" />
+                            break;
+                        }
+                    default:
+                        {
+                            <input type="@field.Type" required="@field.Required" />
+                            break;
+                        }
+
+                }
+            }
+        }
+    }
+    else if (@ViewBag.Exception != null)
+    {
+        <h3>Я очень старался, но ошибок избежать не удалось.</h3>
+        <details>
+            <summary>Возможно, вам интересно, что произошло?</summary>
+            <p>@ViewBag.Exception</p>
+        </details>
+
+    }
+    else
+    {
+        <h3>Вы попали сюда, скормив мне пустой JSON.</h3>
+        <h3>Не надо так.</h3>
+    }
+</div>

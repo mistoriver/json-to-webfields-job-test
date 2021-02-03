@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\mriver\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\mriver\\.nuget\\packages"
+    ]
+  }
+}
