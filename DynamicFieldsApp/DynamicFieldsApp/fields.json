@@ -1,1 +1,14 @@
-[dasdas{'Title':'SomeField','Type':'text','Required':'false'},{'Title':'SomeField2','Type':'select'}]
+{
+	"fields":
+	[
+		{
+			"Title":"SomeField",
+			"Type":"text",
+			"Required":"true"
+		},
+		{
+			"Title":"SomeField2",
+			"Type":"select"
+		}
+	]
+}

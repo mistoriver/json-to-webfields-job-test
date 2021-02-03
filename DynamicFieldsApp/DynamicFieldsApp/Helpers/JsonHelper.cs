@@ -1,7 +1,9 @@
 ﻿using DynamicFieldsApp.Models;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace DynamicFieldsApp.Helpers
@@ -15,9 +17,22 @@ namespace DynamicFieldsApp.Helpers
             {
                 fields = JsonConvert.DeserializeObject<List<Field>>(json);
             }
-            catch (Exception e)
-            { 
-                throw new Exception("Произошла ошибка при обработке JSON", e); 
+            catch
+            {
+                try
+                {
+                    var parsedJson = JObject.Parse(json);
+                    var innerFieldCollection = parsedJson["fields"].Children().ToList();
+                    fields = new List<Field>();
+                    foreach (var token in innerFieldCollection)
+                    {
+                        fields.Add(token.ToObject<Field>());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("Произошла ошибка при обработке JSON", ex);
+                }
             }
             return fields;
         }
